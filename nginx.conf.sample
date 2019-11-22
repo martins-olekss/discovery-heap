@@ -1,0 +1,33 @@
+server {
+   	listen 80;
+	server_name	yourdomain;
+	root		/var/www/projectname/pub;
+	access_log	/var/log/nginx/access.log;
+	error_log	/var/log/nginx/error.log;
+
+	location / {
+		index index.html index.php;
+		try_files $uri $uri/ @handler;
+		expires 30d;
+		satisfy any;
+	}
+
+	location  /. {
+		return 404;
+	}
+
+	location @handler {
+		rewrite / /index.php;
+	}
+
+	location ~ .php$ {
+		if (!-e $request_filename) { rewrite / /index.php last; }
+		expires			off;
+		fastcgi_pass	unix:/var/run/php/php7.2-fpm.sock;
+		fastcgi_param	SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+		fastcgi_param	PHP_VALUE "memory_limit = 512M";
+		include			/etc/nginx/fastcgi_params;
+		add_header		X-Frame-Options SAMEORIGIN;
+   	}
+}
+

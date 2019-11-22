@@ -1,0 +1,20 @@
+{% extends 'layout.twig' %}
+
+{% block content %}
+    <h1>User Control</h1>
+    <h2>Login</h2>
+    <form name="loginForm" method="post" action="/processLogin">
+        <input class="text" placeholder="email" name="email" type="email" required/>
+        <input class="text" placeholder="password" name="password" type="password" required/>
+        <input class="submit" type="submit" value="login"/>
+    </form>
+    <p><a href="/logout" class="button">logout</a></p>
+
+    <h2>Register</h2>
+    <form name="registerForm" method="post" action="/processRegister">
+        <input class="text" placeholder="email" name="email" type="email" required/>
+        <input class="text" placeholder="password" name="password" type="password" required/>
+        <input class="text" placeholder="password_confirm" name="password_confirm" type="password" required/>
+        <input class="submit" type="submit" value="login"/>
+    </form>
+{% endblock %}

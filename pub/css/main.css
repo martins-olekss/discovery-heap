@@ -1,0 +1,148 @@
+/* line 6, sass/main.scss */
+body {
+  background-color: #ffffff;
+}
+
+/* line 10, sass/main.scss */
+h1, h2 {
+  margin-top: 10px;
+  color: #142d4c;
+}
+
+/* line 15, sass/main.scss */
+h1 {
+  font-size: 15pt;
+}
+
+/* line 19, sass/main.scss */
+h2 {
+  font-size: 12pt;
+  padding: 3px 0 3px 5px;
+  background-color: #ececec;
+}
+
+/* line 25, sass/main.scss */
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr 800px 1fr;
+  grid-template-rows: 40px 600px 20px;
+  grid-gap: 5px;
+}
+
+/* line 32, sass/main.scss */
+.header {
+  grid-column: 1 / 4;
+  background: #ececec;
+}
+/* line 36, sass/main.scss */
+.header ul {
+  padding: 5px 0 5px 0;
+  text-align: center;
+  grid-column: 2 / 3;
+}
+/* line 41, sass/main.scss */
+.header ul li {
+  display: inline-block;
+  width: 150px;
+  text-align: center;
+  overflow: hidden;
+}
+/* line 47, sass/main.scss */
+.header ul li a {
+  border-radius: 10px;
+  font-size: 12pt;
+  color: #ececec;
+  background-color: #385170;
+  text-align: center;
+  display: block;
+  padding: 4px;
+  text-decoration: none;
+}
+/* line 57, sass/main.scss */
+.header ul li a:hover {
+  background-color: #142d4c;
+  color: #ececec;
+}
+
+/* line 66, sass/main.scss */
+.content {
+  grid-column: 2 / 3;
+  min-height: 550px;
+  padding: 10px;
+}
+/* line 71, sass/main.scss */
+.content.full {
+  grid-column: 1 / 4;
+  padding: 0 10px 0 10px;
+}
+
+/* line 77, sass/main.scss */
+.footer {
+  grid-column: 2 / 3;
+}
+
+/* line 81, sass/main.scss */
+.button {
+  font-size: 12px;
+  color: #ececec;
+  background-color: #385170;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  margin-top: 5px;
+}
+/* line 94, sass/main.scss */
+.button:hover {
+  background-color: #142d4c;
+}
+
+/* line 99, sass/main.scss */
+form {
+  padding: 5px;
+  margin: 0 auto;
+  width: 200px;
+}
+/* line 104, sass/main.scss */
+form.wide {
+  width: 100%;
+}
+/* line 108, sass/main.scss */
+form input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: none;
+  margin-top: 5px;
+  display: block;
+}
+/* line 117, sass/main.scss */
+form input.text {
+  background-color: #ececec;
+}
+/* line 121, sass/main.scss */
+form input.submit {
+  background-color: #385170;
+  font-weight: bold;
+  color: #ececec;
+}
+/* line 126, sass/main.scss */
+form input.submit:hover {
+  background-color: #142d4c;
+}
+
+/* line 133, sass/main.scss */
+.icon-grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;
+  grid-gap: 3px;
+  background-color: #ececec;
+  padding: 10px;
+}
+/* line 140, sass/main.scss */
+.icon-grid div {
+  text-align: center;
+}

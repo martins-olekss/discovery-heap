@@ -1,0 +1,30 @@
+<html>
+<head>
+    <link href="/css/screen.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+    <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/print.css" media="print" rel="stylesheet" type="text/css"/>
+    <!--[if IE]>
+    <link href="/css/ie.css" media="screen, projection" rel="stylesheet" type="text/css"/>
+    <![endif]-->
+    <link rel="stylesheet" href="/css/all.min.css">
+    <title>MiniFW</title>
+</head>
+<body>
+
+<div class="wrapper">
+    <div class="header">
+        <ul>
+            <li class="item"><a class="menu-item" href="/"><i class="fas fa-home"></i></a></li>
+            <li class="item"><a class="menu-item" href="/user"><i class="fas fa-users"></i></a></li>
+            <li class="item"><a class="menu-item" href="/admin/dashboard"><i class="fas fa-th-large"></i></a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <div class="footer"></div>
+</div>
+</body>
+</html>

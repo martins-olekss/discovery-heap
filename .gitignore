@@ -1,0 +1,9 @@
+.idea
+database/*
+log/*
+artifacts/*
+pub/css/.sass-cache
+template/cache/*
+vendor
+config.ini
+
