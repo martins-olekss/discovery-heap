@@ -53,10 +53,13 @@ $router->post('/save', function () use ($twig) {
  * Authorisation
  */
 $router->before('GET|POST', '/admin/.*', function () {
-    if (!isset($_SESSION['id'])) {
-        header('location: /user');
-        exit();
-    }
+    /*
+     * For now ignore login restriction middleware
+     */
+    //    if (!isset($_SESSION['id'])) {
+    //        header('location: /user');
+    //        exit();
+    //    }
 });
 
 $router->get('/logout', function () {
