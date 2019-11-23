@@ -95,7 +95,7 @@ $router->get('/admin/dashboard', function () use ($twig) {
 $router->post('/processRegister', function () use ($db) {
     $user = new User($db);
     if ($user->registerUser(App::post())) {
-        header('location: /login');
+        header('location: /user');
     } else {
         header('location: /error');
     }

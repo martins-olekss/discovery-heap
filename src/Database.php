@@ -28,7 +28,7 @@ class Database
     {
         $sql = 'SELECT name, age FROM test';
 
-        return $this->db->query($sql)->fetchAll();
+        return $this->connection->query($sql)->fetchAll();
     }
 
     /**
@@ -39,7 +39,7 @@ class Database
     public function editItem($id, $name, $age)
     {
         $sql = 'UPDATE test SET name=?, age=? WHERE id=?';
-        $statement = $this->db->prepare($sql);
+        $statement = $this->connection->prepare($sql);
         $statement->execute([$name, $age, $id]);
     }
 
@@ -50,7 +50,7 @@ class Database
     public function viewItem($id)
     {
         $sql = 'SELECT name, age FROM test WHERE id = ? LIMIT 1';
-        $statement = $this->db->prepare($sql);
+        $statement = $this->connection->prepare($sql);
         $statement->execute(array($id));
 
         return $statement->fetch();
@@ -63,7 +63,7 @@ class Database
     public function addItem($name, $age)
     {
         $sql = 'INSERT INTO test SET name=:name, age=:age';
-        $q = $this->db->prepare($sql);
+        $q = $this->connection->prepare($sql);
         $q->execute(array(':name' => $name, ':age' => $age));
     }
 
