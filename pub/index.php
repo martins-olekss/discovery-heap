@@ -9,9 +9,18 @@ use Bramus\Router\Router;
 use Twig\Extension\DebugExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use Illuminate\Database\Capsule\Manager as Capsule;
 
 const __ROOT__ = __DIR__ . '/..';
 require __ROOT__ . '/vendor/autoload.php';
+
+$capsule = new Capsule;
+$capsule->addConnection([
+    "driver" => "sqlite",
+    'database' => __ROOT__.'/database/db.sqlite3',
+]);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
 
 //$conf = parse_ini_file(__ROOT__ . '/config.ini', true);
 
@@ -23,7 +32,6 @@ $twig = new Environment($loader, [
     'cache' => __ROOT__ . '/template/cache'
 ]);
 $twig->addExtension(new DebugExtension());
-
 
 /*
  * Homepage
@@ -38,6 +46,20 @@ $router->set404(function () use ($twig) {
     header('HTTP/1.1 404 Not Found');
     $template = $twig->load('notFound.twig');
     echo $template->render();
+});
+
+$router->get('/testModel', function () use ($twig) {
+    UserModel::create(
+        [
+            'name' => "Test Khan",
+            'email' => "testemailherer@testtest.com",
+            'password' => password_hash("test123", PASSWORD_BCRYPT),
+        ]
+    );
+
+    foreach(UserModel::all() as $user) {
+        echo $user->name . '<br>';
+    }
 });
 
 $router->get('/about', function () use ($twig) {

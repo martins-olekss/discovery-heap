@@ -3,7 +3,8 @@
     "bramus/router": "^1.4",
     "twig/twig": "^2.0",
     "guzzlehttp/guzzle": "~6.0",
-    "ext-pdo": "*"
+    "ext-pdo": "*",
+    "illuminate/database": "^6.6"
   },
   "autoload": {
     "psr-0": {
