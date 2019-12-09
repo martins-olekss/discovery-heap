@@ -1,8 +1,4 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
 session_start();
 
 use Bramus\Router\Router;
@@ -17,7 +13,7 @@ require __ROOT__ . '/vendor/autoload.php';
 $capsule = new Capsule;
 $capsule->addConnection([
     "driver" => "sqlite",
-    'database' => __ROOT__.'/database/db.sqlite3',
+    'database' => __ROOT__ . '/database/db.sqlite3',
 ]);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
@@ -36,39 +32,16 @@ $twig->addExtension(new DebugExtension());
 /*
  * Homepage
  */
+$router->set404('\App\Controllers\Base@notFound');
 $router->setBasePath('/');
-$router->get('/', function () use ($twig) {
-    $template = $twig->load('homepage.twig');
-    echo $template->render();
-});
-
-$router->set404(function () use ($twig) {
-    header('HTTP/1.1 404 Not Found');
-    $template = $twig->load('notFound.twig');
-    echo $template->render();
-});
-
-$router->get('/testModel', function () use ($twig) {
-    UserModel::create(
-        [
-            'name' => "Test Khan",
-            'email' => "testemailherer@testtest.com",
-            'password' => password_hash("test123", PASSWORD_BCRYPT),
-        ]
-    );
-
-    foreach(UserModel::all() as $user) {
-        echo $user->name . '<br>';
-    }
-});
-
-$router->get('/about', function () use ($twig) {
-    $template = $twig->load('about.twig');
-    echo $template->render();
-});
+$router->get('/', '\App\Controllers\Base@homepage');
+$router->get('/about', '\App\Controllers\Base@about');
+$router->get('/admin/dashboard', '\App\Controllers\Base@adminDashboard');
+// Temporary yest for Eloquent model
+$router->get('/registerTestUser', '\App\Controllers\User@register');
 
 $router->post('/save', function () use ($twig) {
-    echo $_POST['value'];
+    echo $_POST['value']; // Bad practice - testing
 });
 
 /*
@@ -106,11 +79,6 @@ $router->post('/processLogin', function () use ($db) {
 
 $router->get('/user', function () use ($twig) {
     $template = $twig->load('user.twig');
-    echo $template->render();
-});
-
-$router->get('/admin/dashboard', function () use ($twig) {
-    $template = $twig->load('dashboard.twig');
     echo $template->render();
 });
 

@@ -7,8 +7,10 @@
     "illuminate/database": "^6.6"
   },
   "autoload": {
-    "psr-0": {
-      "": "src/"
+    "psr-4": {
+      "": "src/",
+      "App\\Models\\": "src/models",
+      "App\\Controllers\\": "src/controllers"
     }
   },
   "require-dev": {
