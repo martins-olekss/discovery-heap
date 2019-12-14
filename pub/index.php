@@ -11,8 +11,10 @@ $router->setBasePath('/');
 $router->get('/', '\App\Controllers\Base@homepage');
 $router->get('/about', '\App\Controllers\Base@about');
 $router->get('/admin/dashboard', '\App\Controllers\Base@adminDashboard');
-// Temporary yest for Eloquent model
+// Temporary test for Eloquent model
 $router->get('/registerTestUser', '\App\Controllers\User@register');
+// Temporary test for Elasticsearch
+$router->get('/elastic/1', '\App\Controllers\Elasticsearch@testElastic');
 
 $router->post('/save', function () use ($twig) {
     echo $_POST['value']; // Bad practice - testing
