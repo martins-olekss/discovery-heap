@@ -15,6 +15,8 @@ $router->get('/admin/dashboard', '\App\Controllers\Base@adminDashboard');
 $router->get('/registerTestUser', '\App\Controllers\User@register');
 // Temporary test for Elasticsearch
 $router->get('/elastic/1', '\App\Controllers\Elasticsearch@testElastic');
+$router->get('/search', '\App\Controllers\Elasticsearch@showSearch');
+$router->post('/search', '\App\Controllers\Elasticsearch@handleSearch');
 
 $router->post('/save', function () use ($twig) {
     echo $_POST['value']; // Bad practice - testing

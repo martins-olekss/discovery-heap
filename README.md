@@ -22,3 +22,6 @@ Running exampe unit test:
 ```
 ./vendor/bin/phpunit --bootstrap vendor/autoload.php tests/AppTest.php
 ```
+## Elasticsearch
+For debbuging to see all indexed documents, use
+`http://localhost:9200/discovery-elastic-index/_search?pretty=true&q=*:*`

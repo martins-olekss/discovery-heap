@@ -3,8 +3,9 @@
 namespace App\Controllers;
 
 use Elasticsearch\ClientBuilder;
+use App\Models\Article;
 
-class Elasticsearch
+class Elasticsearch extends View
 {
 
     const INDEX_NAME = 'discovery-elastic-index';
@@ -12,12 +13,55 @@ class Elasticsearch
 
     public function __construct()
     {
+        parent::__construct();
         /*
          * If server is not started,
          * results in Elasticsearch\Common\Exceptions\NoNodesAvailableException
          */
         $this->client = ClientBuilder::create()->build();
+    }
 
+    public function indexArticles() {
+
+        $responses = array();
+
+        foreach(Article::all() as $article) {
+            $responses[] = $this->client->index([
+                'index' => self::INDEX_NAME,
+                'id' => $article->id,
+                'body' => [
+                    'title' => $article->title,
+                    'content' => $article->content,
+                    'author' => $article->author
+                ]
+            ]);
+        }
+
+        return $responses;
+    }
+
+    public function showSearch() {
+        // Reset indexes ( testing )
+        $this->indexDelete();
+        $this->indexArticles();
+
+        $template = $this->twig->load('search.twig');
+        echo $template->render();
+//        foreach(Article::all() as $article) {
+//            echo $article->title . '<br>';
+//        }
+    }
+
+    public function handleSearch() {
+        $searchQuery = !empty($_POST['query']) ? $_POST['query'] : false;
+        $response = '';
+        if ($searchQuery !== false) {
+            $response = $this->search($searchQuery);
+        }
+        //echo $this->twig->load('search.twig')->render();
+        // Show hits
+        echo 'Searching: ' . $searchQuery . '<br>';
+        print_r($response['hits']['hits']);
     }
 
     public function testElastic()
