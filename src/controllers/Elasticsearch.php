@@ -7,13 +7,13 @@ use App\Models\Article;
 
 class Elasticsearch extends View
 {
-
-    const INDEX_NAME = 'discovery-elastic-index';
     private $client;
+    private $indexName;
 
     public function __construct()
     {
         parent::__construct();
+        $this->indexName = $_ENV['INDEX_NAME'];
         /*
          * If server is not started,
          * results in Elasticsearch\Common\Exceptions\NoNodesAvailableException
@@ -23,7 +23,7 @@ class Elasticsearch extends View
 
     public function indexArticles() {
 
-        $responses = array();
+        $responses = [];
 
         foreach(Article::all() as $article) {
             $responses[] = $this->client->index([
@@ -101,7 +101,7 @@ class Elasticsearch extends View
             ]
         ];
 
-        $responses = array();
+        $responses = [];
         foreach ($documents as $document) {
             $responses[] = $this->client->index($document);
         }

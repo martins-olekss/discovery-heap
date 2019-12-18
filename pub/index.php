@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once __DIR__ . '/../bootstrap.php';
 
 /*
@@ -14,13 +13,10 @@ $router->get('/admin/dashboard', '\App\Controllers\Base@adminDashboard');
 // Temporary test for Eloquent model
 $router->get('/registerTestUser', '\App\Controllers\User@register');
 // Temporary test for Elasticsearch
-$router->get('/elastic/1', '\App\Controllers\Elasticsearch@testElastic');
 $router->get('/search', '\App\Controllers\Elasticsearch@showSearch');
 $router->post('/search', '\App\Controllers\Elasticsearch@handleSearch');
-
-$router->post('/save', function () use ($twig) {
-    echo $_POST['value']; // Bad practice - testing
-});
+// Test PDF
+$router->get('/pdf', '\App\Controllers\PDF@test');
 
 /*
  * Authorisation
@@ -38,6 +34,7 @@ $router->before('GET|POST', '/admin/.*', function () {
 $router->get('/logout', function () {
     User::logoutUser();
     header('location: /user');
+    exit;
 });
 
 $router->get('/error', function () use ($twig) {
@@ -53,6 +50,7 @@ $router->post('/processLogin', function () use ($db) {
     } else {
         header('location: /');
     }
+    exit;
 });
 
 $router->get('/user', function () use ($twig) {
@@ -67,6 +65,7 @@ $router->post('/processRegister', function () use ($db) {
     } else {
         header('location: /error');
     }
+    exit;
 });
 
 $router->run();

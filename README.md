@@ -8,8 +8,11 @@ Personal scrappy project for testing, discovery and mistakes
 - Templates ( Twig )
 - ORM ( Eloquent )
 
-## Next tech
+## In Progress
 - Message Broker ( RabbitMQ )
+- Dotenv Config ( possibly symfony/dotenv )
+
+## Next tech
 - Use of GitHub Actions
 - Something using Publish/Subscribe ( RabbitMQ or Redis )
 

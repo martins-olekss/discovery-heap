@@ -16,7 +16,7 @@ class Database
      */
     public function __construct()
     {
-        $this->connection = new PDO('sqlite:../database/db.sqlite3');
+        $this->connection = new PDO(sprintf('sqlite:%s',realpath(__ROOT__ . '/database/db.sqlite3')));
         $this->connection->setAttribute(PDO::ATTR_ERRMODE,
             PDO::ERRMODE_EXCEPTION);
     }
@@ -51,7 +51,7 @@ class Database
     {
         $sql = 'SELECT name, age FROM test WHERE id = ? LIMIT 1';
         $statement = $this->connection->prepare($sql);
-        $statement->execute(array($id));
+        $statement->execute([$id]);
 
         return $statement->fetch();
     }
@@ -64,7 +64,7 @@ class Database
     {
         $sql = 'INSERT INTO test SET name=:name, age=:age';
         $q = $this->connection->prepare($sql);
-        $q->execute(array(':name' => $name, ':age' => $age));
+        $q->execute([':name' => $name, ':age' => $age]);
     }
 
     /**
@@ -75,7 +75,7 @@ class Database
     {
         $sql = 'SELECT id, name, email, password FROM user WHERE email = ? LIMIT 1';
         $statement = $this->connection->prepare($sql);
-        $statement->execute(array($email));
+        $statement->execute([$email]);
 
         return $statement->fetch();
     }
@@ -91,7 +91,7 @@ class Database
         $sql = 'INSERT INTO user (email, password, name) VALUES (:email, :password, :name)';
         try {
             $q = $this->connection->prepare($sql);
-            $q->execute(array(':email' => $email, ':password' => $passwordHash, ':name' => $name));
+            $q->execute([':email' => $email, ':password' => $passwordHash, ':name' => $name]);
         } catch (Exception $e) {
             App::log($e->getMessage());
 

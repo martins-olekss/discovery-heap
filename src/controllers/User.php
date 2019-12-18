@@ -2,20 +2,14 @@
 
 namespace App\Controllers;
 
-use \App\Models;
+use \App\Models\User as UserModel;
 
 class User extends View
 {
 
-    public function test()
-    {
-        $template = $this->twig->load('about.twig');
-        echo $template->render();
-    }
-
     public function register()
     {
-        Models\User::create(
+        UserModel::create(
             [
                 'name' => "Test Khan",
                 'email' => "testemailherer@testtest.com",
@@ -23,7 +17,7 @@ class User extends View
             ]
         );
 
-        foreach(Models\User::all() as $user) {
+        foreach(UserModel::all() as $user) {
             echo $user->name . '<br>';
         }
     }

@@ -6,4 +6,5 @@ pub/css/.sass-cache
 template/cache/*
 vendor
 config.ini
+.env
 
