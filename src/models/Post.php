@@ -3,11 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Article extends Model
+/**
+ * @property string title
+ * @property string content
+ * @property string author
+ */
+class Post extends Model
 {
-    public $timestamps = false;
-    //protected $table = 'articles';
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

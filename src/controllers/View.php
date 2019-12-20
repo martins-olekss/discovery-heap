@@ -7,17 +7,22 @@ use Twig\Error\RuntimeError;
 use Twig\Error\SyntaxError;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * @property static request
+ */
 class View
 {
-
     public $template;
+    public $request;
 
     /**
      * View constructor.
      */
     public function __construct()
     {
+        $this->request = Request::createFromGlobals();
         $loader = new FilesystemLoader(__ROOT__ . '/template');
         $this->twig = new Environment($loader, [
             'debug' => true,
@@ -29,7 +34,8 @@ class View
      * @param $templateName
      * @return bool|\Twig\TemplateWrapper
      */
-    public function template($templateName) {
+    public function template($templateName)
+    {
         try {
             return $this->twig->load($templateName);
         } catch (LoaderError $e) {

@@ -1,0 +1,10 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <form action="/post/{{ post.id }}/update" method="POST">
+        <input type="text" class="text" name="title" value="{{ post.title }}" placeholder="title" />
+        <input type="text" class="text" name="author" value="{{ post.author }}" placeholder="author" />
+        <textarea name="content" class="text" placeholder="content">{{ post.content }}</textarea>
+        <input type="submit" />
+    </form>
+{% endblock %}

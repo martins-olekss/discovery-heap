@@ -17,8 +17,7 @@ class Database
     public function __construct()
     {
         $this->connection = new PDO(sprintf('sqlite:%s',realpath(__ROOT__ . '/database/db.sqlite3')));
-        $this->connection->setAttribute(PDO::ATTR_ERRMODE,
-            PDO::ERRMODE_EXCEPTION);
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
     }
 
     /**

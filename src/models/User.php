@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Model
 {
-    public $timestamps = false;
-    protected $table = 'user';
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      *
