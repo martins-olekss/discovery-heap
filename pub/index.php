@@ -11,7 +11,7 @@ $router->get('/', '\App\Controllers\Base@homepage');
 $router->get('/about', '\App\Controllers\Base@about');
 
 /*
- * Article resource
+ * Post resource
  */
 $router->get('/post', '\App\Controllers\Post@index');
 $router->get('/post/create', '\App\Controllers\Post@showCreateForm');
