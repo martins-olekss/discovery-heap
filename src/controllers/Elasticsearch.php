@@ -21,18 +21,18 @@ class Elasticsearch extends View
         $this->client = ClientBuilder::create()->build();
     }
 
-    public function indexArticles() {
+    public function indexPosts() {
 
         $responses = [];
 
-        foreach(Article::all() as $article) {
+        foreach(Post::all() as $post) {
             $responses[] = $this->client->index([
-                'index' => self::INDEX_NAME,
-                'id' => $article->id,
+                'index' => 'elasticindex',
+                'id' => $post->id,
                 'body' => [
-                    'title' => $article->title,
-                    'content' => $article->content,
-                    'author' => $article->author
+                    'title' => $post->title,
+                    'content' => $post->content,
+                    'author' => $post->author
                 ]
             ]);
         }

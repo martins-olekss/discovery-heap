@@ -21,6 +21,14 @@ $router->get('/post/(\d+)/delete', '\App\Controllers\Post@showDeleteForm');
 $router->post('/post/create', '\App\Controllers\Post@create');
 $router->post('/post/(\d+)/update', '\App\Controllers\Post@update');
 $router->post('/post/(\d+)/delete', '\App\Controllers\Post@delete');
+// Test route to index post records from database
+$router->get('/post/index', '\App\Controllers\Post@searchIndex');
+
+/*
+ * User resource
+ */
+$router->get('/user/create', '\App\Controllers\User@showCreateForm');
+$router->post('/user/create', '\App\Controllers\User@create');
 
 /*
  * Other

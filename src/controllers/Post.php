@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use Elasticsearch\ClientBuilder;
 use App\Models\Post as PostModel;
 
 /**
@@ -9,6 +10,16 @@ use App\Models\Post as PostModel;
  */
 class Post extends View
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->indexName = $_ENV['INDEX_NAME'];
+        /*
+         * If server is not started,
+         * results in Elasticsearch\Common\Exceptions\NoNodesAvailableException
+         */
+        $this->client = ClientBuilder::create()->build();
+    }
 
     public function index()
     {
@@ -74,17 +85,42 @@ class Post extends View
         exit;
     }
 
-    public function update() {}
+    public function update()
+    {
+    }
 
     /**
      * @param $id
      */
-    public function delete($id) {
+    public function delete($id)
+    {
         $post = PostModel::find($id);
         $post->delete();
 
         header('location: /post');
         exit;
     }
-    public function validate() {}
+
+    public function validate()
+    {
+    }
+
+    public function searchIndex()
+    {
+        $responses = [];
+
+        foreach (PostModel::all() as $post) {
+            $responses[] = $this->client->index([
+                'index' => 'ela',
+                'id' => $post->id,
+                'body' => [
+                    'title' => $post->title,
+                    'content' => $post->content,
+                    'author' => $post->author
+                ]
+            ]);
+        }
+
+        return $responses;
+    }
 }

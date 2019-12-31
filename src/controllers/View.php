@@ -18,7 +18,7 @@ class View
     public $request;
 
     /**
-     * View constructor.
+     * View constructor
      */
     public function __construct()
     {

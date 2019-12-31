@@ -25,4 +25,22 @@ class User extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function validate() {
+
+        if (empty($this->email)) {
+            return false;
+        }
+        if (empty($this->password)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function save(array $options = []) {
+        if ($this->validate()) {
+            parent::save();
+        }
+    }
 }

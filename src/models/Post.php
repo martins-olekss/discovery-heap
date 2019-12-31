@@ -22,4 +22,14 @@ class Post extends Model
     protected $fillable = [
         'title', 'author', 'content'
     ];
+
+    public function validate() {
+        return true;
+    }
+
+    public function save() {
+        if ($this->validate()) {
+            parent::save();
+        }
+    }
 }
