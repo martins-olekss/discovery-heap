@@ -10,6 +10,8 @@ use App\Models\Post as PostModel;
  */
 class Post extends View
 {
+    public $elasticClient;
+
     public function __construct()
     {
         parent::__construct();
@@ -18,7 +20,11 @@ class Post extends View
          * If server is not started,
          * results in Elasticsearch\Common\Exceptions\NoNodesAvailableException
          */
-        $this->client = ClientBuilder::create()->build();
+        try {
+            $this->elasticClient = ClientBuilder::create()->build();
+        } catch (\Exception $e) {
+            $this->elasticClient = false;
+        }
     }
 
     public function index()
@@ -107,8 +113,12 @@ class Post extends View
 
     public function searchIndex()
     {
-        $responses = [];
+        if (!$this->elasticClient) {
+            echo 'error';
+            return false;
+        }
 
+        $responses = [];
         foreach (PostModel::all() as $post) {
             $responses[] = $this->client->index([
                 'index' => 'ela',

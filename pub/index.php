@@ -29,6 +29,8 @@ $router->get('/post/index', '\App\Controllers\Post@searchIndex');
  */
 $router->get('/user/create', '\App\Controllers\User@showCreateForm');
 $router->post('/user/create', '\App\Controllers\User@create');
+$router->get('/user/login', '\App\Controllers\User@showLoginForm');
+$router->post('/user/login', '\App\Controllers\User@login');
 
 /*
  * Other

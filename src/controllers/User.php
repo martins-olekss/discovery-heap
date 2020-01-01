@@ -6,15 +6,32 @@ use \App\Models\User as UserModel;
 
 class User extends View
 {
-    public function index() {}
-    public function delete() {}
-    public function update() {}
-    public function showCreateForm() {
+    public function index()
+    {
+    }
+
+    public function delete()
+    {
+    }
+
+    public function update()
+    {
+    }
+
+    public function showLoginForm()
+    {
+        $template = $this->twig->load('user/login.twig');
+        echo $template->render();
+    }
+
+    public function showCreateForm()
+    {
         $template = $this->twig->load('user/create.twig');
         echo $template->render();
     }
 
-    public function create() {
+    public function create()
+    {
         $password = $this->request->request->get('password');
         $passwordConfirm = $this->request->request->get('password_confirm');
         if ($password === $passwordConfirm) {
@@ -23,6 +40,22 @@ class User extends View
             $user->email = $this->request->request->get('email');
             $user->password = password_hash($password, PASSWORD_DEFAULT);
             $user->save();
+        } else {
+            return false;
+        }
+    }
+
+    public function login()
+    {
+        $email = $this->request->request->get('email');
+        $password = $this->request->request->get('password');
+
+        $user = UserModel::where('email', $email)->first();
+
+        if (password_verify($password, $user->password)) {
+            $_SESSION['id'] = $user->id;
+            $_SESSION['email'] = $user->email;
+            return true;
         } else {
             return false;
         }

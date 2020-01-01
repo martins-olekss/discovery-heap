@@ -11,4 +11,5 @@ Capsule::schema()->create('users', function (Blueprint $table) {
     $table->string('email');
     $table->string('password');
     $table->timestamps();
+    $table->softDeletes();
 });
