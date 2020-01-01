@@ -1,5 +1,4 @@
 <?php
-session_start();
 require_once __DIR__ . '/../bootstrap.php';
 
 /*
@@ -31,6 +30,7 @@ $router->get('/user/create', '\App\Controllers\User@showCreateForm');
 $router->post('/user/create', '\App\Controllers\User@create');
 $router->get('/user/login', '\App\Controllers\User@showLoginForm');
 $router->post('/user/login', '\App\Controllers\User@login');
+$router->get('/user/logout', '\App\Controllers\User@logout');
 
 /*
  * Other

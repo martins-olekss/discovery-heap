@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 const __ROOT__ = __DIR__;
 require __ROOT__ . '/vendor/autoload.php';
 
@@ -26,4 +28,5 @@ $twig = new Environment($loader, [
     'debug' => true,
     'cache' => __ROOT__ . '/template/cache'
 ]);
+$twig->addGlobal('session', $_SESSION);
 $twig->addExtension(new DebugExtension());

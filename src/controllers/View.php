@@ -28,6 +28,8 @@ class View
             'debug' => true,
             'cache' => __ROOT__ . '/template/cache'
         ]);
+
+        $this->twig->addGlobal('session', $_SESSION);
     }
 
     /**

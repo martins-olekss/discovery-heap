@@ -40,24 +40,34 @@ class User extends View
             $user->email = $this->request->request->get('email');
             $user->password = password_hash($password, PASSWORD_DEFAULT);
             $user->save();
+
+            header('location: /');
+            exit;
         } else {
-            return false;
+            header('location: /');
+            exit;
         }
+    }
+
+    public function logout()
+    {
+        session_destroy();
     }
 
     public function login()
     {
         $email = $this->request->request->get('email');
         $password = $this->request->request->get('password');
-
         $user = UserModel::where('email', $email)->first();
-
         if (password_verify($password, $user->password)) {
             $_SESSION['id'] = $user->id;
             $_SESSION['email'] = $user->email;
-            return true;
+
+            header('location: /');
+            exit;
         } else {
-            return false;
+            header('location: /');
+            exit;
         }
     }
 }
