@@ -25,21 +25,6 @@ class App
     }
 
     /**
-     * @param null $key
-     * @return mixed
-     */
-    public static function post($key = null)
-    {
-        if ($key === null) {
-            $post = $_POST;
-        } else {
-            $post = $_POST[$key];
-        }
-
-        return $post;
-    }
-
-    /**
      * @param $message
      */
     public static function addNotification($message)
@@ -69,7 +54,17 @@ class App
         return false;
     }
 
-    public function indexPosts() {
-
+    /**
+     * @param array $uriParts
+     */
+    public static function redirect(array $uriParts) {
+        /*
+         * Example: ['post', 4, 'update']
+         * Result: /post/4/update
+         */
+        $uri = implode('/',$uriParts);
+        header(sprintf('location: /%s', $uri));
+        exit;
     }
+
 }

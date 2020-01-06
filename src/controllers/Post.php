@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use Elasticsearch\ClientBuilder;
 use App\Models\Post as PostModel;
+use Dompdf\Dompdf;
 
 /**
  * @property  post
@@ -11,6 +12,7 @@ use App\Models\Post as PostModel;
 class Post extends View
 {
     public $elasticClient;
+    public $indexName;
 
     public function __construct()
     {
@@ -22,7 +24,7 @@ class Post extends View
          */
         try {
             $this->elasticClient = ClientBuilder::create()->build();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->elasticClient = false;
         }
     }
@@ -59,6 +61,30 @@ class Post extends View
         echo $template->render(['post' => $post]);
     }
 
+    public function update($id)
+    {
+        $post = PostModel::find($id);
+        $post->title = $this->request->request->get('title');
+        $post->author = $this->request->request->get('author');
+        $post->content = $this->request->request->get('content');
+        $post->save();
+
+        header('location: /post');
+        exit;
+    }
+
+    public function pdf($id) {
+        $post = PostModel::find($id);
+        $template = $this->twig->load('post/pdf/post.twig');
+        $html = $template->render(['post' => $post]);
+
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'landscape');
+        $dompdf->render();
+        $dompdf->stream();
+    }
+
     /**
      * @param $id
      * @throws \Twig\Error\LoaderError
@@ -91,10 +117,6 @@ class Post extends View
         exit;
     }
 
-    public function update()
-    {
-    }
-
     /**
      * @param $id
      */
@@ -107,10 +129,9 @@ class Post extends View
         exit;
     }
 
-    public function validate()
-    {
-    }
-
+    /**
+     * @return array|bool
+     */
     public function searchIndex()
     {
         if (!$this->elasticClient) {
@@ -120,7 +141,7 @@ class Post extends View
 
         $responses = [];
         foreach (PostModel::all() as $post) {
-            $responses[] = $this->client->index([
+            $responses[] = $this->elasticClient->index([
                 'index' => 'ela',
                 'id' => $post->id,
                 'body' => [

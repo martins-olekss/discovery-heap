@@ -22,6 +22,7 @@ $router->post('/post/(\d+)/update', '\App\Controllers\Post@update');
 $router->post('/post/(\d+)/delete', '\App\Controllers\Post@delete');
 // Test route to index post records from database
 $router->get('/post/index', '\App\Controllers\Post@searchIndex');
+$router->get('/post/(\d+)/pdf', '\App\Controllers\Post@pdf');
 
 /*
  * User resource

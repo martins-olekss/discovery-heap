@@ -23,11 +23,18 @@ class Post extends Model
         'title', 'author', 'content'
     ];
 
+    /**
+     * @return bool
+     */
     public function validate() {
         return true;
     }
 
-    public function save() {
+    /**
+     * @param array $options
+     * @return bool|void
+     */
+    public function save(array $options = []) {
         if ($this->validate()) {
             parent::save();
         }

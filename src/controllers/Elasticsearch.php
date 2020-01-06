@@ -47,9 +47,6 @@ class Elasticsearch extends View
 
         $template = $this->twig->load('search.twig');
         echo $template->render();
-//        foreach(Article::all() as $article) {
-//            echo $article->title . '<br>';
-//        }
     }
 
     public function handleSearch() {
@@ -58,7 +55,6 @@ class Elasticsearch extends View
         if ($searchQuery !== false) {
             $response = $this->search($searchQuery);
         }
-        //echo $this->twig->load('search.twig')->render();
         // Show hits
         echo 'Searching: ' . $searchQuery . '<br>';
         print_r($response['hits']['hits']);
@@ -69,7 +65,6 @@ class Elasticsearch extends View
         // Note:
         // Accessing already deleted index triggers exception
         // Elasticsearch\Common\Exceptions\Missing404Exception
-
         $this->elasticFill();
         $searchResponse = $this->search('some');
         foreach($searchResponse['hits']['hits'] as $response) {
@@ -77,6 +72,9 @@ class Elasticsearch extends View
         }
     }
 
+    /**
+     * @return array
+     */
     public function elasticFill()
     {
         // Fill elastic with test documents
@@ -110,6 +108,9 @@ class Elasticsearch extends View
 
     }
 
+    /**
+     * @return array
+     */
     public function indexDocument()
     {
         $params = [
@@ -123,6 +124,9 @@ class Elasticsearch extends View
         return $this->client->index($params);
     }
 
+    /**
+     * @return array
+     */
     public function indexDelete()
     {
         $deleteParams = [
@@ -142,6 +146,9 @@ class Elasticsearch extends View
         return $this->client->get($params);
     }
 
+    /**
+     * @return array
+     */
     public function deleteDocument()
     {
         $params = [
@@ -152,6 +159,10 @@ class Elasticsearch extends View
         return $this->client->delete($params);
     }
 
+    /**
+     * @param $queryString
+     * @return array
+     */
     public function search($queryString)
     {
         $params = [
